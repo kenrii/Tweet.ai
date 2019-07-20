@@ -1,7 +1,10 @@
 from flask import Flask, request, render_template
 import tweepy
 from flask import jsonify
-
+from text_processing import text_manipulation
+import pandas as pd
+import json
+tp = text_manipulation()
 
 #post request for tweepy api
 app = Flask(__name__,template_folder='templates', static_folder='static')
@@ -21,17 +24,28 @@ def search_tweets():
 
 @app.route('/tweets',methods = ['POST','GET'])
 def tweepy_post():
-    word = request.form['text']
-    results = tweepy.Cursor(api.search, q=word,
+    word = request.form['text'] + '-filter:retweets'
+    tweets = []
+    for item in tweepy.Cursor(api.search, q=word,
                               count=200,
                               monitor_rate_limit=True, 
                               wait_on_rate_limit=True,
                               wait_on_rate_limit_notify = True,
                               retry_count = 5, 
                               retry_delay = 5,
-                              lang = 'en').items(10)
-    tweets = [item.text.strip() for item in results]
-    return render_template('show_tweets.html',tweets = tweets)
+                              tweet_mode = 'extended',
+                              lang = 'en').items(10):
+        tweets.append(item.full_text)
+        
+    df_tweets = pd.DataFrame(tweets,columns=['tweet'])
+    for index, row in df_tweets.iterrows():
+    # prints tuple (column, value)
+        print(row.values)
+        clean_data = df_tweets
+    #tweets = tp.convert_json(results)
+    clean_data = df_tweets['tweet'].apply(tp.cleaning)
+    print(clean_data)
+    return render_template('show_tweets.html',tweets = clean_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
