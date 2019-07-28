@@ -3,7 +3,9 @@ import tweepy
 from flask import jsonify
 from text_processing import text_manipulation
 import pandas as pd
-import json
+from flask import json
+
+
 tp = text_manipulation()
 
 #post request for tweepy api
@@ -34,18 +36,17 @@ def tweepy_post():
                               retry_count = 5, 
                               retry_delay = 5,
                               tweet_mode = 'extended',
-                              lang = 'en').items(10):
+                              lang = 'en').items(100):
         tweets.append(item.full_text)
         
     df_tweets = pd.DataFrame(tweets,columns=['tweet'])
     for index, row in df_tweets.iterrows():
     # prints tuple (column, value)
-        print(row.values)
         clean_data = df_tweets
-    #tweets = tp.convert_json(results)
     clean_data = df_tweets['tweet'].apply(tp.cleaning)
-    print(clean_data)
-    return render_template('show_tweets.html',tweets = clean_data)
+    results = tp.classify(clean_data)
+    results_json = json.dumps(results)
+    return render_template('show_tweets.html',tweets = results_json)
 
 if __name__ == "__main__":
     app.run(debug=True)

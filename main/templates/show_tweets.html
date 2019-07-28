@@ -1,8 +1,39 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    </head>
     <body>
-            {% for item in tweets %}
-                {{ item }}
-            {%endfor%}
+        <canvas id="myChart" width="200" height="300"></canvas>
+        <script>
+            var counts = JSON.parse("{{ tweets }}");
+            var ctx = document.getElementById('myChart');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data:{
+                    labels:['Negative', 'Neutral', 'Positive'],
+                    datasets:[{
+                        data: counts,
+                        backgroundColor: [
+                            '#f9989f',
+                            '#faf096',
+                            '#c5f8c8'
+                        ]
+                    }]
+                },
+                options:{
+                    title:{
+                        display: true,
+                        text: ' 100 latest tweets',
+                        fontSize: 25
+                    },
+                    legend:{
+                    display: false,
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        </script>
     </body>
 </html>
