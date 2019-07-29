@@ -28,17 +28,11 @@ def search_tweets():
 def tweepy_post():
     word = request.form['text'] + '-filter:retweets'
     tweets = []
-    for item in tweepy.Cursor(api.search, q=word,
-                              count=200,
-                              monitor_rate_limit=True, 
-                              wait_on_rate_limit=True,
-                              wait_on_rate_limit_notify = True,
-                              retry_count = 5, 
-                              retry_delay = 5,
-                              tweet_mode = 'extended',
+    for item in tweepy.Cursor(api.search, q=word, count=200, monitor_rate_limit=True, 
+                              wait_on_rate_limit=True, wait_on_rate_limit_notify = True,
+                              retry_count = 5, retry_delay = 5, tweet_mode = 'extended',
                               lang = 'en').items(100):
         tweets.append(item.full_text)
-        
     df_tweets = pd.DataFrame(tweets,columns=['tweet'])
     for index, row in df_tweets.iterrows():
     # prints tuple (column, value)

@@ -1,12 +1,7 @@
 import json
 import pandas as pd
-
 import numpy as np
 import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-
 from textblob import TextBlob
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer 
@@ -16,6 +11,10 @@ import re
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
+
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
 
 lemmatizer = WordNetLemmatizer()
 remove_these = '@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+@[\w]*'

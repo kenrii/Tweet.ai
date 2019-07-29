@@ -10,6 +10,7 @@ body {
   background-color: rgb(29, 161, 242);
   background-image: linear-gradient(to right,#36D1DC,#5B86E5);
 }
+
 input[name='text'] {
   width:250px;
   height: 45px;
@@ -33,10 +34,10 @@ button[type="submit"] {
   border: transparent;
   transition: height 0.5s, transform 0.5s;
 }
+
 button[type="submit"]:hover{
   transform: scale(1.2);
 }
-
 
 div.submit-button {
   position: fixed;
