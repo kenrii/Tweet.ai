@@ -2,12 +2,12 @@ import json
 import pandas as pd
 import numpy as np
 import nltk
-from textblob import TextBlob
+from textblob import TextBlob, Word
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer 
 from nltk.tokenize import word_tokenize
-from textblob import Word
 import re
+import string
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -15,26 +15,29 @@ from sklearn.linear_model import LogisticRegression
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
-
 lemmatizer = WordNetLemmatizer()
-remove_these = '@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+@[\w]*'
-stopwords = set(stopwords.words('english'))
+remove_emojis = re.compile('[^' + ''.join(string.printable) + ']')
+remove_these = '[-()\"#/@;:<>{}`+=~|.!?,’\'&“”‘$£%]|https?:\S+|http?:\S|[^A-Za-z0-9]+@[\w]*'
+custom_words = ['amp','like','one','two','would','also','say','thing','youu','youuu',"u'",'u',"u''"]
+stopwords = set(stopwords.words('english')).union(custom_words)
 
 class text_manipulation():
 
-    def convert_json(self, json_data):
-        #convert json to dataframe
-        data = [item.text.strip() for item in json_data]
-        print(data)
-        return pd.DataFrame(data)
-
-    def cleaning(self, tweet):
-        #lemmatize, remove stopwords and other not important syntax
-        tokens = []
-        tweet = re.sub(remove_these,' ',str(tweet).lower()).strip()
-        tweet_tokenized = word_tokenize(tweet)
-        tweet = [word for word in tweet_tokenized if word not in stopwords] #stopwordid
-        tweet = [Word(w).lemmatize() for w in tweet]
+    def preprocessing(self, tweet):
+        # remove punctuations and unwanted text.
+        tweet = re.sub(remove_these, ' ', tweet).lower()
+        # remove emojis
+        tweet = remove_emojis.sub(' ', tweet)
+        # remove numbers
+        tweet = re.sub('\d+', ' ', tweet)
+        # remove stopwords 
+        tweet = ' '.join([word for word in tweet.split() if word not in stopwords])
+        # tokenize tweets
+        tweet = word_tokenize(tweet)
+        #lemmatize tweets
+        tweet = [lemmatizer.lemmatize(w) for w in tweet]
+        #remove 'u'
+        tweet = map(lambda item: item if item != 'u' else ' ', tweet)
         return ' '.join(tweet)
     
     def classify(self, tweet):

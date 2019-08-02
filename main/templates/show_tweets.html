@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="../static/show_tweets.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../static/show_tweets.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
     </head>
     <body>
-        <div class="myChart-container">
-            <canvas id="myChart" width="500" height="500"></canvas>
+        <div class="myChart-container" style="width: 100%; height: 500px;">
+            <canvas id="myChart" width="500" height="500" style="border"></canvas>
+            <canvas id="myChart2" width="500" height="500" style="border"></canvas>
         </div>
         <script>
+            Chart.defaults.global.defaultFontFamily = "Montserrat";
             var counts = JSON.parse("{{ tweets }}");
             var ctx = document.getElementById('myChart');
             var myChart = new Chart(ctx, {
@@ -20,18 +25,67 @@
                         backgroundColor: [
                             '#f9989f',
                             '#faf096',
-                            '#c5f8c8'
-                        ]
+                            '#c5f8c8']
                     }]
                 },
                 options:{
+                    plugins:{
+                        labels:false
+                    },
                     title:{
                         display: true,
-                        text: ' 100 latest tweets',
+                        text: 'Latest Tweets',
+                        fontSize: 25
+                    },
+                    legend:{
+                        display: false,
+                    },
+                    scales:{
+                        yAxes: [{
+                            ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
+                        }]
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false
+                }
+            })
+            var keywords = JSON.parse('{{keywords}}'.replace(/&#34;/g,'"'))
+            var ctx2 = document.getElementById('myChart2');
+            var myChart2 = new Chart(ctx2, {
+                type: 'horizontalBar',
+                data:{
+                    labels: Object.keys(keywords),
+                    datasets:[{
+                        data: Object.values(keywords),
+                        backgroundColor: '#03c6fc'
+                    }]
+                },
+                options:{
+                    plugins:{
+                        labels:{
+                            render: 'values',
+                            overlap: true
+                        }
+                    },
+                    layout:{
+                        padding:{
+                            left: 20,
+                            right: 20
+                        }
+                    },
+                    title:{
+                        display: true,
+                        text: 'Top Keywords',
                         fontSize: 25
                     },
                     legend:{
                     display: false,
+                    },
+                    scales:{
+                        yAxes: [{
+                            ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
+                        }
+                        ]
                     },
                     responsive: false,
                     maintainAspectRatio: false

@@ -1,10 +1,9 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, json
 import tweepy
-from flask import jsonify
 from text_processing import text_manipulation
 import pandas as pd
-from flask import json
-
+import collections
+import itertools 
 
 tp = text_manipulation()
 
@@ -31,16 +30,20 @@ def tweepy_post():
     for item in tweepy.Cursor(api.search, q=word, count=200, monitor_rate_limit=True, 
                               wait_on_rate_limit=True, wait_on_rate_limit_notify = True,
                               retry_count = 5, retry_delay = 5, tweet_mode = 'extended',
-                              lang = 'en').items(100):
+                              lang = 'en').items(1000):
         tweets.append(item.full_text)
     df_tweets = pd.DataFrame(tweets,columns=['tweet'])
-    for index, row in df_tweets.iterrows():
-    # prints tuple (column, value)
-        clean_data = df_tweets
-    clean_data = df_tweets['tweet'].apply(tp.cleaning)
-    results = tp.classify(clean_data)
+    
+    #processing data for sentimental analysis
+    analysis_data = df_tweets['tweet'].apply(tp.preprocessing)
+    results = tp.classify(analysis_data)
     results_json = json.dumps(results)
-    return render_template('show_tweets.html',tweets = results_json)
+
+    #counting word occurrences for keyword data 
+    keywords_data = analysis_data.str.split(expand=True).stack().value_counts()
+    keywords_json = keywords_data.head(10).to_json() #top10 to json
+    print(keywords_json)
+    return render_template('show_tweets.html',tweets = results_json, keywords = keywords_json)
 
 if __name__ == "__main__":
     app.run(debug=True)
