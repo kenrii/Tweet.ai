@@ -17,7 +17,7 @@ nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 remove_emojis = re.compile('[^' + ''.join(string.printable) + ']')
 remove_these = '[-()\"#/@;:<>{}`+=~|.!?,’\'&“”‘$£%]|https?:\S+|http?:\S|[^A-Za-z0-9]+@[\w]*'
-custom_words = ['amp','like','one','two','would','also','say','thing','youu','youuu',"u'",'u',"u''"]
+custom_words = ['amp','like','one','two','would','also','say','thing','youu','youuu',"u'",'u',"u''", 'via']
 stopwords = set(stopwords.words('english')).union(custom_words)
 
 class text_manipulation():

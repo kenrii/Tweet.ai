@@ -19,6 +19,7 @@ input[name='text'] {
   border: 1px solid #ccc;
   border-radius: 14px;
   padding: 12px 40px 12px 20px;
+  outline: none;
   }
 
 button[type="submit"] {
