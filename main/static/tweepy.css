@@ -26,14 +26,15 @@ button[type="submit"] {
   width: 12.75px;
   height: 12.75px;
   background-color: transparent;
+  border: transparent;
   background-image: url('icons8-search-30.png');
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: center;
   margin-left: -35px;
-  cursor: pointer;
-  border: transparent;
   transition: height 0.5s, transform 0.5s;
+  outline: none;
+  cursor: pointer;
 }
 
 button[type="submit"]:hover{
