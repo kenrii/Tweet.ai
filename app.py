@@ -23,7 +23,7 @@ api = tweepy.API(auth)
 def search_tweets():
     return render_template('tweepy.html')
 
-@app.route('/tweets',methods = ['POST','GET'])
+@app.route('https://tweetai.herokuapp.com/tweets',methods = ['POST','GET'])
 def tweepy_post():
     word = request.form['text'] + '-filter:retweets'
     tweets = []
