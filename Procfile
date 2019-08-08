@@ -1,1 +1,0 @@
-web: gunicorn app: main\tweepy_flask
