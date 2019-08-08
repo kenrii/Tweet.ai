@@ -8,12 +8,14 @@
         <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
     </head>
     <body>
-        <div class="myChart-container" style="width: 100%; height: 100%;">
-            <canvas id="myChart" width="350" height="350" style="display: inline-block"></canvas>
-            <canvas id="myChart2" width="350" height="350" style="display: inline-block"></canvas>
+        <div class = "center">
+            <div class="myChart-container" style="width: 80%; height: 70%;">
+                <canvas id="myChart" width="375" height="375" style="display: inline-block" ></canvas>
+                <canvas id="myChart2" width="375" height="375" style="display: inline-block"></canvas>
+            </div>
         </div>
-        <div class="go-back" style= "width: 30%; height: 20%;">
-            <button onclick="history.back()">Go back to Search</button>
+        <div class="go-back" style= "width: 20%; height: 10%;">
+            <button onclick="history.back()">Back to search</button>
         </div>
         <script>
             Chart.defaults.global.defaultFontFamily = "Montserrat";
@@ -38,7 +40,8 @@
                     title:{
                         display: true,
                         text: 'Latest Tweets',
-                        fontSize: 25
+                        fontSize: 25,
+                        padding: 20                        
                     },
                     legend:{
                         display: false,
@@ -79,7 +82,8 @@
                     title:{
                         display: true,
                         text: 'Top Keywords',
-                        fontSize: 25
+                        fontSize: 25,
+                        padding: 20 
                     },
                     legend:{
                     display: false,
