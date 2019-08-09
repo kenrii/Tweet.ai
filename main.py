@@ -31,10 +31,10 @@ def tweepy_post():
                               retry_count = 5, retry_delay = 5, tweet_mode = 'extended',
                               lang = 'en').items(1000):
         tweets.append(item.full_text)
-    df_tweets = pd.DataFrame(tweets,columns=['tweet'])
+    tweets = pd.DataFrame(tweets,columns=['tweet'])
     
     # Processing data for sentimental analysis
-    analysis_data = df_tweets['tweet'].apply(tp.preprocessing)
+    analysis_data = tweets['tweet'].apply(tp.preprocessing)
     results = tp.classify(analysis_data)
     results_json = json.dumps(results)
 
