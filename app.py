@@ -21,9 +21,9 @@ api = tweepy.API(auth)
 
 @app.route('/')
 def search_tweets():
-    return render_template('tweepy.html')
+    return render_template('index.html')
 
-@app.route('/show_tweets',methods = ['POST','GET'])
+@app.route('/tweet_analysis',methods = ['POST','GET'])
 def tweepy_post():
     word = request.form['text'] + '-filter:retweets'
     tweets = []
@@ -43,7 +43,7 @@ def tweepy_post():
     keywords_data = analysis_data.str.split(expand=True).stack().value_counts()
     keywords_json = keywords_data.head(10).to_json() #top10 to json
     print(keywords_json)
-    return render_template('show_tweets.html',tweets = results_json, keywords = keywords_json)
+    return render_template('tweet_analysis.html',tweets = results_json, keywords = keywords_json)
 
 if __name__ == "__main__":
     app.run(debug=True)
