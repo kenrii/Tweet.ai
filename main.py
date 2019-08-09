@@ -4,13 +4,14 @@ from tweet_analysis import text_process
 import pandas as pd
 import collections
 
-#post request for tweepy api
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
+# Get own keys and tokens from https://developer.twitter.com
 consumer_key = 'IwpQtV35O2GKsiUaOxTkaNhE9'
 consumer_key_secret = 'buKfFADTDoAmVBVhZu4l7gBWgs8z0vt15SwmrsHPeoV4qhMfh0'
 access_token = '945059496631656448-8UeOdsnmF8htZ83KNqTZZ0LabXTarJJ'
 access_token_secret = 'zj7XCAPEOEy8Ep6QhmbmidCgLXb0bqrbRKjW0B95Ubjal'
+
 auth = tweepy.AppAuthHandler(consumer_key, consumer_key_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True,
                 wait_on_rate_limit_notify=True)
@@ -32,12 +33,12 @@ def tweepy_post():
         tweets.append(item.full_text)
     df_tweets = pd.DataFrame(tweets,columns=['tweet'])
     
-    #processing data for sentimental analysis
+    # Processing data for sentimental analysis
     analysis_data = df_tweets['tweet'].apply(tp.preprocessing)
     results = tp.classify(analysis_data)
     results_json = json.dumps(results)
 
-    #counting word occurrences for keyword data 
+    # Counting word occurrences for keyword data 
     keywords_data = analysis_data.str.split(expand=True).stack().value_counts()
     keywords_json = keywords_data.head(10).to_json() #top10 to json
     print(keywords_json)
