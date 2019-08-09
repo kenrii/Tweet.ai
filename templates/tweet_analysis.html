@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="../static/tweet_analysis.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-        <link rel="shortcut icon" href="favicon.ico"">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+        <meta charset='utf-8'>
+        <link rel='stylesheet' type='text/css' href='../static/tweet_analysis.css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat&display=swap' rel='stylesheet'>
+        <link rel='shortcut icon' href='favicon.ico'>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js'></script>
+        <script src='https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js'></script>
     </head>
     <body>
-        <div class = "center">
-            <div class="myChart-container" style="width: 80%; height: 70%;">
-                <canvas id="myChart" width="375" height="375" style="display: inline-block" ></canvas>
-                <canvas id="myChart2" width="375" height="375" style="display: inline-block"></canvas>
+        <div class = 'center'>
+            <div class='myChart-container' style='width: 80%; height: 70%;'>
+                <canvas id='myChart' width='375' height='375' style='display: inline-block' ></canvas>
+                '<canvas id='myChart2' width='375' height='375' style='display: inline-block'></canvas>
             </div>
         </div>
-        <div class="go-back" style= "width: 20%; height: 10%;">
-            <button onclick="history.back()">Back to search</button>
+        <div class ='go-back' style= 'width: 20%; height: 10%;'>
+            <button onclick='history.back()'>Back to search</button>
         </div>
         <script>
-            Chart.defaults.global.defaultFontFamily = "Montserrat";
-            var counts = JSON.parse("{{ tweets }}");
+            Chart.defaults.global.defaultFontFamily = 'Montserrat';
+            var counts = JSON.parse('{{ tweets }}');
             var ctx = document.getElementById('myChart');
             var myChart = new Chart(ctx, {
                 type: 'bar',

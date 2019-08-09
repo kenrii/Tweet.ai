@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../static/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico"">
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='../static/index.css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat&display=swap' rel='stylesheet'>
+    <link rel='shortcut icon' href='favicon.ico'>
 </head>
 <body>
     <div class = 'submit-button'>
         <h1>Tweet.ai</h1>
-        <form action = "http://localhost:5000/tweet_analysis" method = "POST"> 
-            <!-- For Heroku: action = "https://tweetai.herokuapp.com/tweet_analysis" -->
+        <form action = 'http://localhost:5000/tweet_analysis' method = 'POST'> 
+            <!-- For Heroku: action = "https://tweetai.herokuapp.com/tweet_analysis"-->
             <input name = 'text' placeholder='Search Twitter' type='text'>
             <button type=submit name='text'> </button>
         </form>
