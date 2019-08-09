@@ -5,6 +5,7 @@ import pandas as pd
 import collections
 import itertools 
 
+#Custom library for processing text
 tp = text_manipulation()
 
 #post request for tweepy api
