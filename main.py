@@ -1,11 +1,8 @@
 from flask import Flask, request, render_template, json
 import tweepy
-from text_processing import text_manipulation
+from tweet_analysis import text_process
 import pandas as pd
 import collections
-import itertools 
-
-tp = text_manipulation()
 
 #post request for tweepy api
 app = Flask(__name__,template_folder='templates', static_folder='static')
@@ -25,6 +22,7 @@ def search_tweets():
 
 @app.route('/tweet_analysis',methods = ['POST','GET'])
 def tweepy_post():
+    tp = text_process()
     word = request.form['text'] + '-filter:retweets'
     tweets = []
     for item in tweepy.Cursor(api.search, q=word, count=200, monitor_rate_limit=True, 
