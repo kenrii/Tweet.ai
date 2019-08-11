@@ -1,6 +1,6 @@
 import nltk
 from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import re
 import string
@@ -16,41 +16,37 @@ nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 remove_emojis = re.compile('[^' + ''.join(string.printable) + ']')
 remove_these = '[-()\"#/@;:<>{}`+=~|.!?,’\'&“”‘$£%_]|https?:\S+|http?:\S|@[\w]*'
-custom_words = ['amp','like','one','two','would','also','say','thing','youu','youuu',"u'",'u',"u''", 'via']
+custom_words = ['amp', 'like', 'one', 'two', 'would', 'also', 'say', 'thing', 'u', 'via']
 stopwords = set(stopwords.words('english')).union(custom_words)
 
-class text_process():
 
+class text_process:
     def preprocessing(self, tweet):
-        # Remove punctuations and unwanted text.
+        """ Removes punctuations, emojis, numbers and nltk stopwords.
+
+        Returns lemmatized tweet in string form.
+        """
         tweet = re.sub(remove_these, ' ', tweet).lower()
-        # Remove emojis
         tweet = remove_emojis.sub(' ', tweet)
-        # Remove numbers
         tweet = re.sub('\d+', ' ', tweet)
-        # Remove stopwords 
         tweet = ' '.join([word for word in tweet.split() if word not in stopwords])
-        # Tokenize tweet
         tweet = word_tokenize(tweet)
-        # Lemmatize words
         tweet = [lemmatizer.lemmatize(w) for w in tweet]
-        # Remove 'u'
-        tweet = map(lambda item: item if item != 'u' else ' ', tweet)
+        tweet = map(lambda item: item if item != ('u' and 'string') else ' ', tweet)
+
         return ' '.join(tweet)
-    
+
     def classify(self, tweet):
-        # classify tweets with trained machine learning model
+        """Classify tweet data with trained machine learning model.
+
+        Returns a list of integers that represent numbers of positive, neutral and negative tweets.
+        """
         ngram_vocabulary = pickle.load(open('model/ngram_vocabulary.pkl', 'rb'))
         ngram_vectorizer = CountVectorizer(vocabulary=ngram_vocabulary)
-        X = ngram_vectorizer.transform(tweet)
+        vectorized_data = ngram_vectorizer.transform(tweet)
 
         model = pickle.load(open('model/logreg_model.sav', 'rb'))
-        prediction = list(model.predict(X))
-        occurrences = [prediction.count(item) for item in set(prediction)]
-        return occurrences
+        model_predictions = list(model.predict(vectorized_data))
+        polarity_occurrences = [model_predictions.count(item) for item in set(model_predictions)]
 
-
-    
-
-        
-    
+        return polarity_occurrences

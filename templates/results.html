@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <link rel='stylesheet' type='text/css' href='../static/tweet_analysis.css'>
+        <link rel='stylesheet' type='text/css' href='../static/results.css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat&display=swap' rel='stylesheet'>
         <link rel='shortcut icon' href='favicon.ico'>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js'></script>
@@ -10,9 +10,9 @@
     </head>
     <body>
         <div class = 'center'>
-            <div class='myChart-container' style='width: 80%; height: 70%;'>
-                <canvas id='myChart' width='375' height='375' style='display: inline-block' ></canvas>
-                '<canvas id='myChart2' width='375' height='375' style='display: inline-block'></canvas>
+            <div class='chartContainer' style='width: 80%; height: 70%;'>
+                <canvas id='barChart' width='375' height='375' style='display: inline-block' ></canvas>
+                '<canvas id='horizontalChart' width='375' height='375' style='display: inline-block'></canvas>
             </div>
         </div>
         <div class ='go-back' style= 'width: 20%; height: 10%;'>
@@ -21,8 +21,8 @@
         <script>
             Chart.defaults.global.defaultFontFamily = 'Montserrat';
             var counts = JSON.parse('{{ tweets }}');
-            var ctx = document.getElementById('myChart');
-            var myChart = new Chart(ctx, {
+            var chart = document.getElementById('barChart');
+            var barChart = new Chart(chart, {
                 type: 'bar',
                 data:{
                     labels:['Negative', 'Neutral', 'Positive'],
@@ -57,8 +57,8 @@
                 }
             })
             var keywords = JSON.parse('{{keywords}}'.replace(/&#34;/g,'"'))
-            var ctx2 = document.getElementById('myChart2');
-            var myChart2 = new Chart(ctx2, {
+            var chart2 = document.getElementById('horizontalChart');
+            var horizontalBar = new Chart(chart2, {
                 type: 'horizontalBar',
                 data:{
                     labels: Object.keys(keywords),
@@ -68,12 +68,6 @@
                     }]
                 },
                 options:{
-                    plugins:{
-                        labels:{
-                            render: 'values',
-                            overlap: true
-                        }
-                    },
                     layout:{
                         padding:{
                             left: 20,

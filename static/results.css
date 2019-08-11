@@ -14,31 +14,13 @@ body {
   }
 
 canvas {
-    margin: 25px;
+    margin: 30px;
     border: 2px;
     border-radius: 24px;
     padding: 5px 35px 30px 30px;
     background-color: white;
     position: relative;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-}
-.center{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-.myChart-contrainer{
-    width: 100%;
-}
-
-.go-back{
-    position: absolute;
-    padding: 0;
-    text-align: center;
-    top: 15px;
-    left: -20px;
 }
 
 button {
@@ -55,4 +37,21 @@ button {
     cursor: pointer;
     outline: none;
 }
+
+.center{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.go-back{
+    position: absolute;
+    padding: 0;
+    text-align: center;
+    top: 15px;
+    left: -20px;
+}
+
 
