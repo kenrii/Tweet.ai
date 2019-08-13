@@ -18,7 +18,7 @@ remove_emojis = re.compile('[^' + ''.join(string.printable) + ']')
 remove_these = '[-()\"#/@;:<>{}`+=~|.!?,’\'&“”‘$£%_]|https?:\S+|http?:\S|@[\w]*'
 custom_words = ['amp', 'like', 'one', 'two', 'would', 'also', 'say', 'thing', 'u', 'via']
 stopwords = set(stopwords.words('english')).union(custom_words)
-
+remove_from_results = ['u', 'string']
 
 class text_process:
     def preprocessing(self, tweet):
@@ -32,7 +32,7 @@ class text_process:
         tweet = ' '.join([word for word in tweet.split() if word not in stopwords])
         tweet = word_tokenize(tweet)
         tweet = [lemmatizer.lemmatize(w) for w in tweet]
-        tweet = map(lambda item: item if item != ('u' and 'string') else ' ', tweet)
+        tweet = map(lambda item: item if item not in remove_from_results else ' ', tweet)
 
         return ' '.join(tweet)
 

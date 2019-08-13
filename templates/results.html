@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset='utf-8'>
-        <link rel='stylesheet' type='text/css' href='../static/results.css'>
-        <link href='https://fonts.googleapis.com/css?family=Montserrat&display=swap' rel='stylesheet'>
-        <link rel='shortcut icon' href='favicon.ico'>
-        <title>Results</title>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js'></script>
-        <script src='https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js'></script>
-    </head>
-    <body>
-        <div class = 'center'>
-            <div class='chartContainer' style='width: 80%; height: 70%;'>
-                <canvas id='barChart' width='375' height='375' style='display: inline-block' ></canvas>
-                '<canvas id='horizontalChart' width='375' height='375' style='display: inline-block'></canvas>
-            </div>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' type='text/css' href='../static/results.css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat&display=swap' rel='stylesheet'>
+    <link rel='shortcut icon' href='favicon.ico'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js'></script>
+    <title>Results</title>
+</head>
+<body>
+    <div class='center'>
+        <div class='chartContainer' style='width: 80%; height: 70%;'>
+            <canvas id='barChart' width='375' height='375' style='display: inline-block' ></canvas>
+            <canvas id='horizontalChart' width='375' height='375' style='display: inline-block'></canvas>
         </div>
-        <div class ='go-back' style= 'width: 20%; height: 10%;'>
-            <button onclick='history.back()'>Back to search</button>
-        </div>
-        <script>
-            Chart.defaults.global.defaultFontFamily = 'Montserrat';
-            var counts = JSON.parse('{{ tweets }}');
-            var chart = document.getElementById('barChart');
-            var barChart = new Chart(chart, {
-                type: 'bar',
-                data:{
-                    labels:['Negative', 'Neutral', 'Positive'],
-                    datasets:[{
-                        data: counts,
-                        backgroundColor: [
-                            '#f9989f',
-                            '#faf096',
-                            '#c5f8c8']
-                    }]
+    </div>
+    <div class='go-back' style='width: 20%; height: 10%;'>
+        <button onclick='history.back()'>Back to search</button>
+    </div>
+    <script>
+        Chart.defaults.global.defaultFontFamily = 'Montserrat';
+        var counts = JSON.parse('{{ tweets }}');
+        var chart = document.getElementById('barChart');
+        
+        var barChart = new Chart(chart, {
+            type: 'bar',
+            data:{
+                labels:['Negative', 'Neutral', 'Positive'],
+                datasets:[{
+                    data: counts,
+                    backgroundColor: [
+                        '#f9989f',
+                        '#faf096',
+                        '#c5f8c8']
+                }]
+            },
+            options:{
+                plugins:{
+                    labels:false
                 },
-                options:{
-                    plugins:{
-                        labels:false
-                    },
-                    title:{
-                        display: true,
-                        text: 'Latest Tweets',
-                        fontSize: 25,
-                        padding: 20                        
-                    },
-                    legend:{
-                        display: false,
-                    },
-                    scales:{
-                        yAxes: [{
-                            ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
-                        }]
-                    },
-                    responsive: false,
-                    maintainAspectRatio: false
-                }
-            })
-            var keywords = JSON.parse('{{keywords}}'.replace(/&#34;/g,'"'))
-            var chart2 = document.getElementById('horizontalChart');
-            var horizontalBar = new Chart(chart2, {
-                type: 'horizontalBar',
-                data:{
-                    labels: Object.keys(keywords),
-                    datasets:[{
-                        data: Object.values(keywords),
-                        backgroundColor: '#03c6fc'
-                    }]
+                title:{
+                    display: true,
+                    text: 'Latest Tweets',
+                    fontSize: 25,
+                    padding: 20                        
                 },
-                options:{
-                    layout:{
-                        padding:{
-                            left: 20,
-                            right: 20
-                        }
-                    },
-                    title:{
-                        display: true,
-                        text: 'Top Keywords',
-                        fontSize: 25,
-                        padding: 20 
-                    },
-                    legend:{
+                legend:{
                     display: false,
-                    },
-                    scales:{
-                        yAxes: [{
-                            ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
-                        }
-                        ]
-                    },
-                    responsive: false,
-                    maintainAspectRatio: false
-                }
-            });
-        </script>
-    </body>
+                },
+                scales:{
+                    yAxes: [{
+                        ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
+                    }]
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+        var keywords = JSON.parse('{{keywords}}'.replace(/&#34;/g,'"'));
+        var chart2 = document.getElementById('horizontalChart');
+
+        var horizontalBar = new Chart(chart2, {
+            type: 'horizontalBar',
+            data:{
+                labels: Object.keys(keywords),
+                datasets:[{
+                    data: Object.values(keywords),
+                    backgroundColor: '#03c6fc'
+                }]
+            },
+            options:{
+                layout:{
+                    padding:{
+                        left: 20,
+                        right: 20
+                    }
+                },
+                title:{
+                    display: true,
+                    text: 'Top Keywords',
+                    fontSize: 25,
+                    padding: 20 
+                },
+                legend:{
+                display: false,
+                },
+                scales:{
+                    yAxes: [{
+                        ticks: { min:0, beginAtZero: true, stepSize: 100, max:1000}
+                    }]
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
 </html>

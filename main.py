@@ -26,9 +26,8 @@ def tweepy_post():
     tp = text_process()
     user_search = request.form['text'] + '-filter:retweets'
     searched_tweets = [tweet.full_text for tweet in tweepy.Cursor(
-        api.search, q=user_search, count=200, monitor_rate_limit=True,
-        wait_on_rate_limit=True, wait_on_rate_limit_notify=True,
-        retry_count=5, retry_delay=5, tweet_mode='extended', lang='en').items(1000)]
+        api.search, q = user_search, count = 200, monitor_rate_limit = True,
+        retry_count = 5, retry_delay = 5, tweet_mode = 'extended', lang = 'en').items(1000)]
     df_tweets = pd.DataFrame(searched_tweets, columns=['tweet'])
 
     # Preprocessing and classifying tweets
