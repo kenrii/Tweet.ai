@@ -36,6 +36,7 @@ class text_process:
 
         return ' '.join(tweet)
 
+
     def classify(self, tweet):
         """Classify tweet data with trained machine learning model.
 

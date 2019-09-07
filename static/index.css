@@ -1,3 +1,8 @@
+body {
+  background-color: rgb(29, 161, 242);
+  background-image: linear-gradient(to right,#36D1DC,#5B86E5);
+}
+
 h1{
   text-align: center;
   color: white;
@@ -6,11 +11,6 @@ h1{
   font-style:normal;
   font-size: 40px;
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-body {
-  background-color: rgb(29, 161, 242);
-  background-image: linear-gradient(to right,#36D1DC,#5B86E5);
 }
 
 input[name='text'] {

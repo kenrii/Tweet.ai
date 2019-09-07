@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from tweet_analysis import text_process
 
-file_path = 'polarity_data_twitter.csv' # Path to your file which contains data for model traininf
+file_path = 'polarity_data_twitter.csv' # Path to your file that contains data for model training
 polarity_column = 'polarity'  # Name of a column that contains negative, neutral and positive polarity values
 tweets_column = 'tweet'  # Name of a column that contains rows of tweets
 col_fields = [polarity_column, tweets_column]
