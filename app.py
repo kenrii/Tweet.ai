@@ -7,10 +7,10 @@ import collections
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Get personal keys and tokens from https://developer.twitter.com
-consumer_key = #put it here
-consumer_key_secret = #put it here
-access_token = #put it here
-access_token_secret = #put it here
+consumer_key = #use your own
+consumer_key_secret = #use your own
+access_token = #use your own
+access_token_secret = #use your own
 
 auth = tweepy.AppAuthHandler(consumer_key, consumer_key_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
