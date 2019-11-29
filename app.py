@@ -32,7 +32,6 @@ def tweepy_post():
 
     # Preprocessing and classifying tweets
     analysis_data = df_tweets['tweet'].apply(tp.preprocessing)
-    print(analysis_data)
     results = tp.classify(analysis_data)
     results_json = json.dumps(results)
 
