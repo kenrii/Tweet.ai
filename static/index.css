@@ -17,7 +17,7 @@ input[name='text'] {
   width: 250px;
   height: 45px;
   line-height: 1.5;
-  margin-right: -15px;
+  margin-right: -1.5vh;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
   color: white;
@@ -38,7 +38,7 @@ button[type="submit"] {
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: center;
-  margin-left: -12px;
+  margin-left: -0.93vh;
   transition: height 0.5s, transform 0.5s;
   outline: none;
   cursor: pointer;
